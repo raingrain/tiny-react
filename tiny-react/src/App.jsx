@@ -1,14 +1,13 @@
 import React from "./core/React.js";
 
-function Test() {
-    console.log("I am the Test Component");
-
+function Foo() {
+    console.log("re foo");
     const [count, setCount] = React.useState(10);
-    const [test, setTest] = React.useState("Test");
+    const [bar, setBar] = React.useState("bar");
 
     function handleClick() {
         setCount((c) => c + 1);
-        setTest(() => "Test");
+        setBar(() => "bar");
     }
 
     React.useEffect(() => {
@@ -20,6 +19,7 @@ function Test() {
 
     React.useEffect(() => {
         console.log("update", count);
+        // cleanup
         return () => {
             console.log("cleanup 1");
         };
@@ -27,15 +27,22 @@ function Test() {
 
     React.useEffect(() => {
         console.log("update", count);
+        // cleanup
         return () => {
             console.log("cleanup 2");
         };
     }, [count]);
 
+    // useEffect(() => {
+    //   console.log("update");
+    // }, [count]);
+
     return (
         <div>
-            <div>{test}</div>
-            <button onClick={handleClick}>{count}</button>
+            <h1>foo</h1>
+            {count}
+            <div>{bar}</div>
+            <button onClick={handleClick}>click</button>
         </div>
     );
 }
@@ -43,8 +50,8 @@ function Test() {
 function App() {
     return (
         <div>
-            <h1>Hello, mini-react!</h1>
-            <Test></Test>
+            hi-mini-react
+            <Foo></Foo>
         </div>
     );
 }

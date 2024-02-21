@@ -241,7 +241,6 @@ function reconcileChildren(fiber, children) {
 
 // 处理函数式组件
 function updateFunctionComponent(fiber) {
-    stateHooks = [];
     stateHookIndex = 0;
     effectHooks = [];
     wipFiber = fiber;
@@ -309,7 +308,6 @@ function update() {
     };
 }
 
-let stateHooks;
 let stateHookIndex;
 
 function useState(initial) {
@@ -325,11 +323,13 @@ function useState(initial) {
         stateHook.state = action(stateHook.state);
     });
     stateHook.queue = [];
-    stateHookIndex++;
-    stateHooks.push(stateHook);
-    if (!currentFiber.stateHooks || stateHookIndex === currentFiber.stateHooks?.length) {
-        currentFiber.stateHooks = stateHooks;
+    if (!currentFiber.stateHooks) {
+        currentFiber.stateHooks = [];
     }
+
+    currentFiber.stateHooks[stateHookIndex] = stateHook;
+
+    stateHookIndex++;
 
     function setState(action) {
         // 提前检测 减少不必要的更新
