@@ -1,1 +1,1 @@
-# 🎉[tiny React](https://github.com/raingrain/tiny-react)🎉
+# 🎉[Tiny React](https://github.com/raingrain/tiny-react)🎉
